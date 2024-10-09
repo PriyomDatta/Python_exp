@@ -32,15 +32,30 @@ reg_Ridge2 = linear_model.Ridge(alpha = 0)
 reg_Ridge2.fit(X_train, y_train)
 
 # Create the Ridge model set solver as ‘cholesky’
-reg_Ridge3 = linear_model.Ridge(solver=‘cholesky’)
+reg_Ridge3 = linear_model.Ridge(solver='cholesky')
 # Fit the model using the training data
 reg_Ridge3.fit(X_train, y_train)
 
 # Create the Ridge model set solver as ‘sparse_cg’
-reg_Ridge4 = linear_model.Ridge(solver=‘sparse_cg’)
+reg_Ridge4 = linear_model.Ridge(solver='sparse_cg')
 # Fit the model using the training data
 reg_Ridge4.fit(X_train, y_train)
 
+# Print the coefficients
+print("Coefficients linear reg:", reg.coef_)
+print("Coefficients linear reg:", reg.intercept_)
+
+print("Coefficients Ridge reg(alpha 1):", reg_Ridge1.coef_)
+print("Coefficients Ridge reg(alpha 1):", reg_Ridge1.intercept_)
+
+print("Coefficients Ridge reg(alpha 0):", reg_Ridge2.coef_)
+print("Coefficients Ridge reg(alpha 0):", reg_Ridge2.intercept_)
+
+print("Coefficients Ridge reg(cholesky):", reg_Ridge3.coef_)
+print("Coefficients Ridge reg(cholesky):", reg_Ridge3.intercept_)
+
+print("Coefficients Ridge reg(sparse_cg):", reg_Ridge4.coef_)
+print("Coefficients Ridge reg(sparse_cg):", reg_Ridge4.intercept_)
 #-------------------Plotting-------------------#
 import matplotlib.pyplot as plt
 import numpy as np
@@ -67,6 +82,6 @@ plt.plot(x1,y4,'--',label = 'calculated_Ridge_cholesky',color = 'green')
 y5 = x1*reg_Ridge4.coef_ + reg_Ridge4.intercept_
 plt.plot(x1,y5,'--',label = 'calculated_Ridge_sparse_cg',color = 'yellow')
 
-plt.legend(loc = 'lower righ')
+plt.legend(loc = 'lower right')
 plt.savefig('../Images/Img_004_2D.png')
 plt.show()

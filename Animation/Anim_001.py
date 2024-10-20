@@ -18,12 +18,12 @@ def func(x):
     return 3*np.sin(x)
     
 metadata = dict(title='Movie',artist='Nobody')
-writer = PillowWriter(fps = 15,metadate=metadata)
+writer = PillowWriter(fps = 15,metadata=metadata)
 
 xlist = []
 ylist = []
 
-with writer.saving(fig, "sinWave.gif", 100):
+with writer.saving(fig, "output/sinWave_001.gif", 100):
     for xval in np.linspace(-5,5,100):
         xlist.append(xval)
         ylist.append(func(xval))

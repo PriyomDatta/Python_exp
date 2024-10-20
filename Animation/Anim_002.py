@@ -3,7 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FFMpegWriter
-plt.rcParams['animation.ffmpeg_path'] = '' #need path for ffmpeg.exe
+plt.rcParams['animation.ffmpeg_path'] = 'C:\\ffmpeg\\bin\\ffmpeg.exe' #need path for ffmpeg.exe
 
 fig = plt.figure()
 l, = plt.plot([], [], 'k--')
@@ -23,13 +23,13 @@ def func2(x):
     return 3*np.cos(x)
     
 metadata = dict(title='Movie',artist='Nobody')
-writer = PillowWriter(fps = 15,metadate=metadata)
+writer = FFMpegWriter(fps = 15,metadata=metadata)
 
 xlist = []
 ylist = []
 ylist2 = []
 
-with writer.saving(fig, "sinWave.mp4", 100):
+with writer.saving(fig, "output/sinWave_002.mp4", 100):
     for xval in np.linspace(-5,5,100):
         xlist.append(xval)
         ylist.append(func(xval))

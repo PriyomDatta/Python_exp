@@ -1,27 +1,35 @@
 import pandas as pd
+import numpy as np
+from numpy import nan
 
-file_path = '../Data/Data_002.xlsx'
-new_file_path = '../Data/Data_002_output.xlsx'
+file_path = '../UT_data/program_Ford_DCME_metric.xlsx'
+new_file_path = '../UT_data/Data_002_temp1.xlsx'
 sheet_name = 'HIS (Routines)'
 
-df = pd.read_excel(file_path,sheet_name = sheet_name)
-
-#print(df)
+df = pd.read_excel(file_path, sheet_name=sheet_name)
 
 UT_req = [1]
-empty_row = []
 
-df_fil1 = df[df.iloc[:,2].isin(UT_req)]
-df_fil1 = df_fil1.iloc[:,:2]
-
-#print('new data is')
-#print(df_fil1)
-#We have first two column sorted
+df_fil1 = df[df.iloc[:, 2].isin(UT_req)]
+df_fil1 = df_fil1.iloc[:, :2]
 
 # Drop duplicates and keep the first occurrence
-df_fil1['metric name'] = df_fil1['metric name'].where(~df_fil1.duplicated(subset=['metric name']), '')
+df_fil1['Metric name'] = df_fil1['Metric name'].where(~df_fil1.duplicated(subset=['Metric name']), nan)
 
+# Function to add empty rows
+def add_empty_rows(df):
+    new_df = pd.DataFrame(columns=df.columns)
+    for i in range(len(df)):
+        if not pd.isna(df.iloc[i, 0]):
+            empty_row = pd.DataFrame([[np.nan] * len(df.columns)], columns=df.columns)
+            new_df = pd.concat([new_df, empty_row], ignore_index=True)
+            new_df = pd.concat([new_df, empty_row], ignore_index=True)
+        new_df = pd.concat([new_df, df.iloc[[i]]], ignore_index=True)
+    return new_df
 
-print(df_fil1)
+# Apply the function
+new_df = add_empty_rows(df_fil1)
 
-df_fil1.to_excel(new_file_path,index=False)
+print(new_df)
+
+new_df.to_excel(new_file_path, index=False)

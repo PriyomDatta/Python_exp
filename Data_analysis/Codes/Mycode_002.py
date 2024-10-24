@@ -13,6 +13,13 @@ UT_req = [1]
 df_fil1 = df[df.iloc[:, 2].isin(UT_req)]
 df_fil1 = df_fil1.iloc[:, :2]
 
+df_fil1['C0']='xyz'
+df_fil1['C1']='xyz'
+df_fil1['CTE']='Not Created'
+df_fil1['Code Coverage Status']='abc'
+df_fil1['Report Generated']='Not Done'
+df_fil1['Backup Saved']='Not Done'
+
 # Drop duplicates and keep the first occurrence
 df_fil1['Metric name'] = df_fil1['Metric name'].where(~df_fil1.duplicated(subset=['Metric name']), nan)
 

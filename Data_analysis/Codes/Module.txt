@@ -1,0 +1,65 @@
+Sub ApplyConditionalFormatting()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim searchRange As Range
+
+    ' Set the worksheet where the script should run
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+    ' Define the range to check (e.g., entire used range of the sheet)
+    Set searchRange = ws.UsedRange
+
+    ' Loop through each cell in the defined range
+    For Each cell In searchRange
+        ' Check if the cell contains '00.00%'
+        If cell.Text = "xyz" Then
+            ' Clear previous conditional formatting, if any
+            cell.FormatConditions.Delete
+            cell.Value = "00.00%"
+
+            ' Apply conditional formatting to turn green if value changes to '100.00%'
+            With cell.FormatConditions.Add(Type:=xlCellValue, Operator:=xlEqual, Formula1:="100%")
+                .Interior.Color = RGB(0, 255, 0) ' Set green background color
+            End With
+        ElseIf cell.Text = "Not Created" Then
+            ' Set data validation for "Not Created", "Created"
+            With cell.Validation
+                .Delete ' Clear any previous validation
+                .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, _
+                     Operator:=xlBetween, Formula1:="Not Created,Created"
+                .IgnoreBlank = True
+                .InCellDropdown = True
+                .ShowInput = True
+                .ShowError = True
+            End With
+            ' Change the background color based on selected value
+            cell.Interior.Color = RGB(255, 0, 0)
+        ElseIf cell.Text = "Not Done" Then
+            ' Set data validation for "Not Created", "Created"
+            With cell.Validation
+                .Delete ' Clear any previous validation
+                .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, _
+                     Operator:=xlBetween, Formula1:="Not Done,Generated"
+                .IgnoreBlank = True
+                .InCellDropdown = True
+                .ShowInput = True
+                .ShowError = True
+            End With
+            ' Change the background color based on selected value
+            cell.Interior.Color = RGB(255, 0, 0)
+        ElseIf cell.Text = "abc" Then
+            ' Set data validation for "Not Created", "Created"
+            With cell.Validation
+                .Delete ' Clear any previous validation
+                .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, _
+                     Operator:=xlBetween, Formula1:="Completed,In Progress,NotDone"
+                .IgnoreBlank = True
+                .InCellDropdown = True
+                .ShowInput = True
+                .ShowError = True
+            End With
+            ' Change the background color based on selected value
+            cell.Value = "Not Done"
+            cell.Interior.Color = RGB(255, 0, 0)
+        End If
+    Next cell
+End Sub

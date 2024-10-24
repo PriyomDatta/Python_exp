@@ -29,6 +29,10 @@ def add_empty_rows(df):
 
 # Apply the function
 new_df = add_empty_rows(df_fil1)
+print(type(new_df))
+
+for i in range((len(new_df) - 2)):
+    new_df.iloc[i,0] = new_df.iloc[(i + 1),0]
 
 print(new_df)
 

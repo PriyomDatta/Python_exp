@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from numpy import nan
 from future.builtins.misc import isinstance
-from fastjsonschema import indent
 
 file_path = '../UT_data/program_Ford_DCME_metric.xlsx'
 new_file_path = '../UT_data/Data_002_temp1.xlsx'
@@ -15,6 +14,11 @@ UT_req = [1]
 df_fil1 = df[df.iloc[:, 2].isin(UT_req)]
 df_fil1 = df_fil1.iloc[:, :2]
 
+#Module specific implementation
+#Change abc with module name, one at a time
+#df_fil1 = df_fil1[df_fil1['Metric name'].str.startswith('abc')]
+
+#Adding extra data as per requirement if MCDC change required
 df_fil1['C0']='xyz'
 df_fil1['C1']='xyz'
 df_fil1['CTE']='Not Created'
@@ -39,9 +43,15 @@ def add_empty_rows(df):
 # Apply the function
 new_df = add_empty_rows(df_fil1)
 
+#Upshift first column
 for i in range((len(new_df) - 1)):
     new_df.iloc[i,0] = new_df.iloc[(i + 1),0]
 
+#formatting the last [last,0] element
+el_last = len(new_df) - 1
+new_df.iloc[el_last, 0] = np.nan
+
+#Adding the Si. No.
 for i in range(len(new_df)):
     if isinstance(new_df.iloc[i,0],str):
         ind = 1

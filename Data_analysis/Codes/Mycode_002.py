@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from numpy import nan
+from future.builtins.misc import isinstance
+from fastjsonschema import indent
 
 file_path = '../UT_data/program_Ford_DCME_metric.xlsx'
 new_file_path = '../UT_data/Data_002_temp1.xlsx'
@@ -36,11 +38,18 @@ def add_empty_rows(df):
 
 # Apply the function
 new_df = add_empty_rows(df_fil1)
-print(type(new_df))
 
-for i in range((len(new_df) - 2)):
+for i in range((len(new_df) - 1)):
     new_df.iloc[i,0] = new_df.iloc[(i + 1),0]
 
-print(new_df)
+for i in range(len(new_df)):
+    if isinstance(new_df.iloc[i,0],str):
+        ind = 1
+    elif i + 1 < len(new_df) and isinstance(new_df.iloc[i + 1, 0], str):
+        ind = 0
+    else:
+        new_df.iloc[i,0] = ind
+        ind +=1
 
 new_df.to_excel(new_file_path, index=False)
+print("script run completed")

@@ -51,7 +51,7 @@ Sub ApplyConditionalFormatting()
             With cell.Validation
                 .Delete ' Clear any previous validation
                 .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, _
-                     Operator:=xlBetween, Formula1:="Completed,In Progress,NotDone"
+                     Operator:=xlBetween, Formula1:="Completed,In Progress,Not Done"
                 .IgnoreBlank = True
                 .InCellDropdown = True
                 .ShowInput = True

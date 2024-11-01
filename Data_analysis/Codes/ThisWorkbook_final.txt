@@ -1,0 +1,59 @@
+Private Sub Workbook_SheetChange(ByVal Sh As Object, ByVal Target As Range)
+    Dim ws As Worksheet
+    Dim cell As Range
+    
+    ' Set the worksheet to the sheet where the change occurred
+    Set ws = Sh
+
+    ' Check if the change occurred in column E
+    If Not Intersect(Target, ws.Columns("E")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Created" Then
+                cell.Interior.color = RGB(0, 255, 0) ' Green for Created
+            ElseIf cell.Value = "Not Created" Then
+                cell.Interior.color = RGB(255, 0, 0) ' Red for Not Created
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+
+    ' Check if the change occurred in column G
+    ElseIf Not Intersect(Target, ws.Columns("G")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Generated" Then
+                cell.Interior.color = RGB(0, 255, 0) ' Green for Generated
+            ElseIf cell.Value = "Not Done" Then
+                cell.Interior.color = RGB(255, 0, 0) ' Red for Not Done
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+
+    ' Check if the change occurred in column H
+    ElseIf Not Intersect(Target, ws.Columns("H")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Generated" Then
+                cell.Interior.color = RGB(0, 255, 0) ' Green for Generated
+            ElseIf cell.Value = "Not Done" Then
+                cell.Interior.color = RGB(255, 0, 0) ' Red for Not Done
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+
+    ' Check if the change occurred in column F
+    ElseIf Not Intersect(Target, ws.Columns("F")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Completed" Then
+                cell.Interior.color = RGB(0, 255, 0) ' Green for Completed
+            ElseIf cell.Value = "Not Done" Then
+                cell.Interior.color = RGB(255, 0, 0) ' Red for Not Done
+            ElseIf cell.Value = "In Progress" Then
+                cell.Interior.color = RGB(255, 255, 0) ' Yellow for In Progress
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+    End If
+End Sub
+

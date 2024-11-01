@@ -1,0 +1,62 @@
+Sub ApplyConditionalFormattingToAllSheets()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim searchRange As Range
+    
+    ' Loop through each worksheet in the workbook
+    For Each ws In ThisWorkbook.Sheets
+        
+        ' Define the range to check (entire used range of the sheet)
+        Set searchRange = ws.UsedRange
+        
+        ' Loop through each cell in the defined range for the current sheet
+        For Each cell In searchRange
+            ' Check if the cell contains "xyz"
+            If cell.Text = "xyz" Then
+                ' Clear previous conditional formatting
+                cell.FormatConditions.Delete
+                cell.Value = "00.00%"
+                
+                ' Apply conditional formatting for 100.00% to be green
+                With cell.FormatConditions.Add(Type:=xlCellValue, Operator:=xlEqual, Formula1:="100%")
+                    .Interior.color = RGB(0, 255, 0) ' Set green background
+                End With
+            
+            ' Check if the cell contains "Not Created"
+            ElseIf cell.Text = "Not Created" Then
+                ApplyValidationAndColor cell, "Not Created,Created", RGB(255, 0, 0)
+            
+            ' Check if the cell contains "Not Done"
+            ElseIf cell.Text = "Not Done" Then
+                ApplyValidationAndColor cell, "Not Done,Generated", RGB(255, 0, 0)
+            
+            ' Check if the cell contains "abc"
+            ElseIf cell.Text = "abc" Then
+                ApplyValidationAndColor cell, "Completed,In Progress,Not Done", RGB(255, 0, 0)
+                cell.Value = "Not Done"
+            End If
+        Next cell
+        
+    Next ws
+    
+    ' Inform the user that the process is done
+    MsgBox "Conditional formatting and validation applied to all sheets."
+End Sub
+
+' Helper function to apply validation and color
+Sub ApplyValidationAndColor(cell As Range, validationList As String, color As Long)
+    ' Clear previous validation
+    With cell.Validation
+        .Delete
+        .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, _
+             Operator:=xlBetween, Formula1:=validationList
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .ShowInput = True
+        .ShowError = True
+    End With
+    ' Set the background color
+    cell.Interior.color = color
+End Sub
+
+

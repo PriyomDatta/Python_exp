@@ -5,8 +5,8 @@ from future.builtins.misc import isinstance
 from openpyxl import load_workbook
 import os
 
-file_path = '../Data/Data_002.xlsx'
-new_file_path = '../Data/Data_002_output.xlsx'
+file_path = '../UT_data/program_Ford_DCME_metric.xlsx'
+new_file_path = '../UT_data/Data_002_temp1.xlsx'
 sheet_name = 'HIS (Routines)'
 
 #............................. Functions .............................

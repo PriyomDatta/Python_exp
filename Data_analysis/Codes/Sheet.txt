@@ -1,0 +1,50 @@
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim cell As Range
+
+    ' Check if the change occurred in column E
+    If Not Intersect(Target, Me.Columns("E")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Created" Then
+                cell.Interior.Color = RGB(0, 255, 0) ' Green for Created
+            ElseIf cell.Value = "Not Created" Then
+                cell.Interior.Color = RGB(255, 0, 0) ' Red for Not Created
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+    ElseIf Not Intersect(Target, Me.Columns("G")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Generated" Then
+                cell.Interior.Color = RGB(0, 255, 0) ' Green for Generated
+            ElseIf cell.Value = "Not Done" Then
+                cell.Interior.Color = RGB(255, 0, 0) ' Red for Not Done
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+    ElseIf Not Intersect(Target, Me.Columns("H")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Generated" Then
+                cell.Interior.Color = RGB(0, 255, 0) ' Green for Generated
+            ElseIf cell.Value = "Not Done" Then
+                cell.Interior.Color = RGB(255, 0, 0) ' Red for Not Done
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+    ElseIf Not Intersect(Target, Me.Columns("F")) Is Nothing Then
+        For Each cell In Target
+            If cell.Value = "Completed" Then
+                cell.Interior.Color = RGB(0, 255, 0) ' Green for Created
+            ElseIf cell.Value = "Not Done" Then
+                cell.Interior.Color = RGB(255, 0, 0) ' Red for Not Created
+            ElseIf cell.Value = "In Progress" Then
+                cell.Interior.Color = RGB(255, 255, 0) ' Yellow for In Progress
+            Else
+                cell.Interior.ColorIndex = xlNone ' Clear the color if neither
+            End If
+        Next cell
+    End If
+End Sub
+
+

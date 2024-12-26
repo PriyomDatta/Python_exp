@@ -14,15 +14,16 @@ pressed=False
 def click(event, x, y, flags, param):
 	global canvas, pressed
 	if event == cv2.EVENT_LBUTTONDOWN:
-		print("LButton Down")
+		#print("LButton Down")
 		pressed = True
+		point = (x,y)
 		cv2.circle(canvas, point, radius, color, -1)
 	elif event == cv2.EVENT_MOUSEMOVE and pressed == True:
-		print("Mouse Move")
+		#print("Mouse Move")
 		point = (x,y)
 		cv2.circle(canvas, point, radius, color, -1)
 	elif event == cv2.EVENT_LBUTTONUP:
-		print("LButton Up")
+		#print("LButton Up")
 		pressed = False
 
 # window initialization and callback assignment
